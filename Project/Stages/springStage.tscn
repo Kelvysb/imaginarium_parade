@@ -1,0 +1,75 @@
+[gd_scene load_steps=9 format=3 uid="uid://grukehrsesa7"]
+
+[ext_resource type="Script" path="res://Stages/springStage.gd" id="1_j4wj4"]
+[ext_resource type="PackedScene" uid="uid://bmivry4uus55u" path="res://player.tscn" id="2_r8hvc"]
+[ext_resource type="AudioStream" uid="uid://2wnj83yhtiv2" path="res://Assets/Music/Spring_1.mp3" id="3_rm1r8"]
+[ext_resource type="PackedScene" uid="uid://dg0h403j728tj" path="res://Objects/Frame.tscn" id="4_xrpif"]
+[ext_resource type="PackedScene" uid="uid://c7i5i6awci5yl" path="res://Scripts/AudioProcess.tscn" id="5_401jc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k77ik"]
+size = Vector2(1331, 155)
+
+[sub_resource type="Curve2D" id="Curve2D_1giwl"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 50, 1, 0, 0, 0, 0, 1067, 1)
+}
+point_count = 2
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vsr05"]
+particle_flag_disable_z = true
+direction = Vector3(0, 100, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+
+[node name="SpringStage" type="Node2D"]
+script = ExtResource("1_j4wj4")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 323)
+
+[node name="Player" parent="." instance=ExtResource("2_r8hvc")]
+z_index = 1
+position = Vector2(119, 389)
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_rm1r8")
+volume_db = -23.423
+autoplay = true
+
+[node name="AudioProcess" parent="." node_paths=PackedStringArray("MusicPlayer") instance=ExtResource("5_401jc")]
+MusicPlayer = NodePath("../MusicPlayer")
+MusicParametersPath = "res://Assets/Music/spring_1.json"
+
+[node name="Frame" parent="." instance=ExtResource("4_xrpif")]
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(-82, 605)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2(655.5, 67.5)
+shape = SubResource("RectangleShape2D_k77ik")
+
+[node name="Polygon2D" type="Polygon2D" parent="Floor"]
+polygon = PackedVector2Array(-7, -6, 1324, -8, 1324, 147, -9, 142)
+
+[node name="Wave" type="Node2D" parent="."]
+position = Vector2(21, 0)
+
+[node name="Path2D" type="Path2D" parent="Wave"]
+curve = SubResource("Curve2D_1giwl")
+
+[node name="Wave1Position" type="PathFollow2D" parent="Wave/Path2D"]
+position = Vector2(50, 1)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Wave/Path2D/Wave1Position"]
+rotation = -0.00172117
+amount = 1000
+process_material = SubResource("ParticleProcessMaterial_vsr05")
+lifetime = 30.0
+trail_lifetime = 0.1
+
+[connection signal="OnMusicEvent" from="AudioProcess" to="." method="_on_audio_process_on_music_event"]

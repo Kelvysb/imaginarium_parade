@@ -1,0 +1,21 @@
+{
+    "plataformHzRange": {
+        "min": 2000,
+        "max": 4000
+    },
+    "obstacleHzRange": {
+        "min": 40,
+        "max": 250
+    },
+    "waveHzRange": {
+        "min": 250,
+        "max": 2000
+    },
+    "events": [
+        {
+            "key": "POWER_UP",
+            "name": "PowerUp",
+            "moment": "00:01:00"
+        }
+    ]
+}

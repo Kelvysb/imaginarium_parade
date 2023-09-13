@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://db1q30hurmg85"]
+
+[ext_resource type="Script" path="res://Objects/Plataform.gd" id="1_8syw7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dxa00"]
+size = Vector2(80, 5)
+
+[node name="Plataform" type="AnimatableBody2D" groups=["destructable", "plataform"]]
+script = ExtResource("1_8syw7")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2.5)
+shape = SubResource("RectangleShape2D_dxa00")
+one_way_collision = true
+
+[node name="Geometry" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-40, -5, 40, -5, 40, 5, -40, 5)

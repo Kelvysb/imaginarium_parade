@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://dg0h403j728tj"]
+
+[ext_resource type="Script" path="res://Objects/Frame.gd" id="1_bv63u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oymdn"]
+size = Vector2(1334, 101)
+
+[node name="Frame" type="Node2D"]
+script = ExtResource("1_bv63u")
+
+[node name="Limits" type="StaticBody2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Limits"]
+position = Vector2(175, 119)
+build_mode = 1
+polygon = PackedVector2Array(-158, 531, -158, -118, 977, -119, 977, 530, 1067, 530, 1065, -203, -263, -203, -266, 530)
+
+[node name="Bottom" type="Area2D" parent="." groups=["bottom"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom"]
+position = Vector2(573, 698.5)
+shape = SubResource("RectangleShape2D_oymdn")
+
+[connection signal="body_entered" from="Bottom" to="." method="_on_bottom_body_entered"]
