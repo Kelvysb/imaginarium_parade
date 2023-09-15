@@ -1,0 +1,69 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6r3yj3xpshvq"]
+
+[ext_resource type="Script" path="res://Interfaces/HUD.gd" id="1_b31s5"]
+
+[node name="Hud" type="CanvasLayer"]
+script = ExtResource("1_b31s5")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+layout_mode = 1
+offset_left = 36.0
+offset_top = 17.0
+offset_right = 138.0
+offset_bottom = 63.0
+
+[node name="Label" type="Label" parent="Control/HBoxContainer"]
+layout_mode = 2
+text = "Lives: "
+
+[node name="Lives" type="Label" parent="Control/HBoxContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -101.0
+offset_top = 13.0
+offset_bottom = 60.0
+grow_horizontal = 0
+
+[node name="Label" type="Label" parent="Control/HBoxContainer2"]
+layout_mode = 2
+text = "Score: "
+
+[node name="Score" type="Label" parent="Control/HBoxContainer2"]
+layout_mode = 2
+text = "0"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_top = 17.0
+offset_right = 100.0
+offset_bottom = 58.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="Control/HBoxContainer3"]
+layout_mode = 2
+text = "Special:"
+
+[node name="Special" type="HSlider" parent="Control/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4

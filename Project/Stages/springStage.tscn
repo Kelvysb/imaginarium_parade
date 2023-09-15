@@ -1,17 +1,19 @@
-[gd_scene load_steps=9 format=3 uid="uid://grukehrsesa7"]
+[gd_scene load_steps=13 format=3 uid="uid://grukehrsesa7"]
 
 [ext_resource type="Script" path="res://Stages/springStage.gd" id="1_j4wj4"]
-[ext_resource type="PackedScene" uid="uid://bmivry4uus55u" path="res://player.tscn" id="2_r8hvc"]
+[ext_resource type="PackedScene" uid="uid://c6r3yj3xpshvq" path="res://Interfaces/HUD.tscn" id="2_rnw41"]
 [ext_resource type="AudioStream" uid="uid://2wnj83yhtiv2" path="res://Assets/Music/Spring_1.mp3" id="3_rm1r8"]
 [ext_resource type="PackedScene" uid="uid://dg0h403j728tj" path="res://Objects/Frame.tscn" id="4_xrpif"]
 [ext_resource type="PackedScene" uid="uid://c7i5i6awci5yl" path="res://Scripts/AudioProcess.tscn" id="5_401jc"]
+[ext_resource type="PackedScene" uid="uid://bmivry4uus55u" path="res://Characters/player.tscn" id="6_fampw"]
+[ext_resource type="PackedScene" uid="uid://db1q30hurmg85" path="res://Objects/Plataform.tscn" id="7_yv6o6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k77ik"]
 size = Vector2(1331, 155)
 
 [sub_resource type="Curve2D" id="Curve2D_1giwl"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 50, 1, 0, 0, 0, 0, 1067, 1)
+"points": PackedVector2Array(0, 0, 0, 0, -181, 5, 0, 0, 0, 0, 419, 2)
 }
 point_count = 2
 
@@ -25,15 +27,24 @@ initial_velocity_max = 100.0
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
 
+[sub_resource type="Curve2D" id="Curve2D_np45j"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 674, 3, 0, 0, 0, 0, 120, 1)
+}
+point_count = 2
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tmbjv"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+
 [node name="SpringStage" type="Node2D"]
 script = ExtResource("1_j4wj4")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(576, 323)
-
-[node name="Player" parent="." instance=ExtResource("2_r8hvc")]
-z_index = 1
-position = Vector2(119, 389)
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_rm1r8")
@@ -47,7 +58,7 @@ MusicParametersPath = "res://Assets/Music/spring_1.json"
 [node name="Frame" parent="." instance=ExtResource("4_xrpif")]
 
 [node name="Floor" type="StaticBody2D" parent="."]
-position = Vector2(-82, 605)
+position = Vector2(-82, 615)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
 position = Vector2(655.5, 67.5)
@@ -57,19 +68,104 @@ shape = SubResource("RectangleShape2D_k77ik")
 polygon = PackedVector2Array(-7, -6, 1324, -8, 1324, 147, -9, 142)
 
 [node name="Wave" type="Node2D" parent="."]
-position = Vector2(21, 0)
+position = Vector2(63, -5)
 
-[node name="Path2D" type="Path2D" parent="Wave"]
+[node name="Path1" type="Path2D" parent="Wave"]
+position = Vector2(512, -2)
 curve = SubResource("Curve2D_1giwl")
 
-[node name="Wave1Position" type="PathFollow2D" parent="Wave/Path2D"]
-position = Vector2(50, 1)
+[node name="Wave1Position" type="PathFollow2D" parent="Wave/Path1"]
+unique_name_in_owner = true
+position = Vector2(-181, 5)
+rotation = -0.00499996
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="Wave/Path2D/Wave1Position"]
+[node name="Point1" type="GPUParticles2D" parent="Wave/Path1/Wave1Position"]
+unique_name_in_owner = true
 rotation = -0.00172117
-amount = 1000
+amount = 100
 process_material = SubResource("ParticleProcessMaterial_vsr05")
 lifetime = 30.0
 trail_lifetime = 0.1
 
+[node name="Path2" type="Path2D" parent="Wave"]
+curve = SubResource("Curve2D_np45j")
+
+[node name="Wave2Position" type="PathFollow2D" parent="Wave/Path2"]
+unique_name_in_owner = true
+position = Vector2(674, 3)
+rotation = -3.13798
+
+[node name="Point2" type="GPUParticles2D" parent="Wave/Path2/Wave2Position"]
+unique_name_in_owner = true
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_tmbjv")
+lifetime = 30.0
+
+[node name="PlataformsPoints" type="Node2D" parent="."]
+position = Vector2(26, -48)
+
+[node name="PlataformPoint1" type="Node2D" parent="PlataformsPoints" groups=["plataformSpawn"]]
+position = Vector2(100, 0)
+
+[node name="PlataformPoint2" type="Node2D" parent="PlataformsPoints" groups=["plataformSpawn"]]
+position = Vector2(250, 0)
+
+[node name="PlataformPoint3" type="Node2D" parent="PlataformsPoints" groups=["plataformSpawn"]]
+position = Vector2(400, 0)
+
+[node name="PlataformPoint4" type="Node2D" parent="PlataformsPoints" groups=["plataformSpawn"]]
+position = Vector2(550, 0)
+
+[node name="PlataformPoint5" type="Node2D" parent="PlataformsPoints" groups=["plataformSpawn"]]
+position = Vector2(700, 0)
+
+[node name="PlataformPoint6" type="Node2D" parent="PlataformsPoints" groups=["plataformSpawn"]]
+position = Vector2(850, 0)
+
+[node name="PlataformPoint7" type="Node2D" parent="PlataformsPoints" groups=["plataformSpawn"]]
+position = Vector2(1000, 0)
+
+[node name="ObstaclesPoints" type="Node2D" parent="."]
+position = Vector2(26, -71)
+
+[node name="ObstaclePoint1" type="Node2D" parent="ObstaclesPoints" groups=["obstacleSpawn"]]
+position = Vector2(100, 0)
+
+[node name="ObstaclePoint2" type="Node2D" parent="ObstaclesPoints" groups=["obstacleSpawn"]]
+position = Vector2(250, 0)
+
+[node name="ObstaclePoint3" type="Node2D" parent="ObstaclesPoints" groups=["obstacleSpawn"]]
+position = Vector2(400, 0)
+
+[node name="ObstaclePoint4" type="Node2D" parent="ObstaclesPoints" groups=["obstacleSpawn"]]
+position = Vector2(550, 0)
+
+[node name="ObstaclePoint5" type="Node2D" parent="ObstaclesPoints" groups=["obstacleSpawn"]]
+position = Vector2(700, 0)
+
+[node name="ObstaclePoint6" type="Node2D" parent="ObstaclesPoints" groups=["obstacleSpawn"]]
+position = Vector2(850, 0)
+
+[node name="ObstaclePoint7" type="Node2D" parent="ObstaclesPoints" groups=["obstacleSpawn"]]
+position = Vector2(1000, 0)
+
+[node name="PlataformTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="ObstacleTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="Player" parent="." node_paths=PackedStringArray("hud") instance=ExtResource("6_fampw")]
+position = Vector2(578, 269)
+hud = NodePath("../Hud")
+
+[node name="Plataform" parent="." instance=ExtResource("7_yv6o6")]
+position = Vector2(577, 298)
+Delay = 5.0
+
+[node name="Hud" parent="." instance=ExtResource("2_rnw41")]
+
 [connection signal="OnMusicEvent" from="AudioProcess" to="." method="_on_audio_process_on_music_event"]
+[connection signal="timeout" from="PlataformTimer" to="." method="_on_plataform_timer_timeout"]
+[connection signal="timeout" from="ObstacleTimer" to="." method="_on_obstacle_timer_timeout"]

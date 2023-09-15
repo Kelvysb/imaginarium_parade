@@ -1,22 +1,22 @@
 {
 	"plataformHzRange": {
-		"min": 2000,
+		"min": 40,
 		"max": 4000,
-		"dbMin": 60,
-		"dbMax": 100
+		"dbMin": 0.0,
+		"dbMax": 0.5
 		
 	},
 	"obstacleHzRange": {
 		"min": 40,
 		"max": 250,
-		"dbMin": 60,
-		"dbMax": 100
+		"dbMin": 0.0,
+		"dbMax": 0.5
 	},
 	"waveHzRange": {
-		"min": 250,
-		"max": 2000,
-		"dbMin": 60,
-		"dbMax": 100
+		"min": 40,
+		"max": 4000,
+		"dbMin": 0.0,
+		"dbMax": 0.5
 	},
 	"events": [
 		{
