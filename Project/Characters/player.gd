@@ -15,7 +15,6 @@ const DASH_SPEED = 1000
 @export var coyote_time : float = 0.15
 @export var dash_time : float = 0.3
 @export var recover_time : float = 3
-
 @export var fall_multiplier : float = 2.0
 @export var maxLifes : int = 3
 
@@ -41,6 +40,7 @@ var facing = 1
 var life : int = 0
 var score : int = 0
 
+@onready var pause_screen = $PauseScreen
 @onready var jump_timer = $JumpTimer
 @onready var sprite = $Sprite
 @onready var dash_particle = $DashParticle
@@ -62,6 +62,7 @@ func _ready():
 	
 func _physics_process(delta):	
 	hud.SetLifes(life)
+	handlePause()
 	handleRecovering(delta)
 	handleSpecialCharge(delta)
 	if not dashing:			
@@ -81,6 +82,10 @@ func handleRecovering(delta):
 			recover_animation.stop()
 			recovering = false	
 		
+func handlePause():
+	if Input.is_action_just_pressed("pause"):
+		get_tree().paused = true
+		pause_screen.visible = true
 
 func handleSpecialCharge(delta):
 	if specialTimer > 0:
@@ -205,7 +210,6 @@ func Damage():
 			recovering = true
 			recoverTimer = recover_time
 			recover_animation.play("Recover")
-		
 
 func CheckObstacles():
 	if atacking:
@@ -216,7 +220,6 @@ func CheckObstacles():
 				score += obstacle.Points
 				hud.SetScore(score)
 				obstacle.Kill()
-
 
 func _on_hit_box_body_entered(body):
 	if (body as Node2D).is_in_group("obstacle") and not recovering:

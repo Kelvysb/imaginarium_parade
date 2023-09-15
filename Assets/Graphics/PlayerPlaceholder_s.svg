@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="67.27594mm"
+   height="75.242653mm"
+   viewBox="0 0 67.27594 75.242651"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   sodipodi:docname="PlayerPlaceholder_s.svg"
+   inkscape:export-filename="PlayerPlaceholder.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.0242632"
+     inkscape:cx="206.97805"
+     inkscape:cy="115.69292"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Camada 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-49.259118,-78.907744)">
+    <path
+       id="path2"
+       style="fill:#000000;stroke-width:0.228451"
+       d="M 104.2971 78.907744 A 12.238008 12.238008 0 0 0 92.065291 91.062041 C 75.96714 98.148348 59.217062 77.214669 49.259118 109.51208 C 72.668611 87.100544 74.425322 112.61834 92.201716 92.970452 A 12.238008 12.238008 0 0 0 97.676834 101.43867 C 92.896125 116.14155 91.238969 120.7971 78.454235 134.74051 C 67.128319 147.0929 78.890292 145.94302 82.611604 146.74288 C 85.843064 147.43744 84.487411 152.01311 87.789583 152.15599 C 90.993567 152.29462 92.820477 148.16328 96.026289 148.07665 C 100.02762 147.9685 102.732 154.67733 106.69541 154.11711 C 110.13736 153.6306 113.18634 151.64272 114.06912 146.74288 C 116.8322 131.40648 115.22514 116.79299 108.33096 102.6696 A 12.238008 12.238008 0 0 0 116.53511 91.145757 A 12.238008 12.238008 0 0 0 104.2971 78.907744 z " />
+  </g>
+</svg>

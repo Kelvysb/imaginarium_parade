@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="186.02533mm"
+   height="38.024235mm"
+   viewBox="0 0 186.02533 38.024235"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   sodipodi:docname="Weapon.svg"
+   inkscape:export-filename="Weapon.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.51213161"
+     inkscape:cx="248.95944"
+     inkscape:cy="104.46533"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Camada 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-21.919076,-118.14764)">
+    <path
+       id="rect1"
+       style="fill:#000000;stroke-width:0.264583"
+       d="m 173.75994,118.14834 c -6.67585,0.0493 -15.0511,2.75022 -26.21081,9.96115 -1.54002,-1.07593 -3.41275,-1.711 -5.44204,-1.711 H 31.417204 c -5.261973,0 -9.498128,4.23615 -9.498128,9.49812 v 1.82677 c 0,5.26196 4.236155,9.49812 9.498128,9.49812 H 142.10709 c 1.86689,0 3.59901,-0.54142 5.06429,-1.46451 14.46718,14.34148 37.09418,16.12469 60.77303,-9.10797 -11.92306,-3.82604 -18.27444,-18.61811 -34.18447,-18.50068 z" />
+  </g>
+</svg>
