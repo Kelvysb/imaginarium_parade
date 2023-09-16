@@ -42,7 +42,7 @@ var score : int = 0
 
 @onready var pause_screen = $PauseScreen
 @onready var jump_timer = $JumpTimer
-@onready var sprite = $Sprite
+@onready var sprite = $Sprites/Sprite
 @onready var dash_particle = $DashParticle
 @onready var run_particle = $RunParticle
 @onready var jump_particle = $JumpParticle
@@ -51,6 +51,7 @@ var score : int = 0
 @onready var atack_area1 = $SpinAtack/AtackArea
 @onready var atack_area2 = $Atack/AtackArea
 @onready var recover_animation = $RecoverAnimation
+@onready var animation_tree = $AnimationTree
 
 func _input(event):
 	if Input.is_action_just_pressed("jump"):
@@ -117,6 +118,8 @@ func handle_direction(delta):
 			facing = -1
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
+		
+	animation_tree.set("parameters/BlendSpace1D/blend_position", absf(velocity.x))
 
 func handle_jump(delta):
 	if is_on_floor():	
