@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://grukehrsesa7"]
+[gd_scene load_steps=26 format=3 uid="uid://grukehrsesa7"]
 
 [ext_resource type="Script" path="res://Stages/springStage.gd" id="1_j4wj4"]
 [ext_resource type="Texture2D" uid="uid://cpatsusuqed8n" path="res://Assets/Background/layer1.png" id="2_4nsw0"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://db1q30hurmg85" path="res://Objects/Plataform.tscn" id="7_yv6o6"]
 [ext_resource type="Texture2D" uid="uid://bi2tiyl8sct1b" path="res://Assets/Background/layer7.png" id="8_yju8j"]
 [ext_resource type="PackedScene" uid="uid://ccukg8pjai65l" path="res://Interfaces/PauseScreen.tscn" id="9_o5gpn"]
+[ext_resource type="PackedScene" uid="uid://sphdgthaikqe" path="res://Objects/MusicTitle.tscn" id="17_wj1ce"]
 
 [sub_resource type="Curve2D" id="Curve2D_1giwl"]
 _data = {
@@ -90,21 +91,23 @@ transform = Transform2D(1, 0, 0, 1, 600, -250)
 scroll_ignore_camera_zoom = true
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+texture_repeat = 2
 motion_scale = Vector2(0.1, 0.1)
-motion_mirroring = Vector2(0, 1400)
+motion_mirroring = Vector2(1000, 1000)
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer"]
 texture = ExtResource("2_4nsw0")
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="Background/ParallaxBackground"]
-motion_scale = Vector2(0.2, 0.2)
-motion_mirroring = Vector2(1044, 1044)
+texture_repeat = 2
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(1000, 1000)
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer2"]
 texture = ExtResource("3_a4dwl")
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="Background/ParallaxBackground"]
-motion_scale = Vector2(0.3, 0.3)
+motion_scale = Vector2(0.1, 0.1)
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer3"]
 texture = ExtResource("4_my838")
@@ -122,13 +125,12 @@ motion_scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_x7eow")
 
 [node name="ParallaxLayer6" type="ParallaxLayer" parent="Background/ParallaxBackground"]
-motion_scale = Vector2(0.6, 0.6)
+motion_scale = Vector2(0.9, 0.9)
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer6"]
 texture = ExtResource("7_xlb3e")
 
 [node name="ParallaxLayer7" type="ParallaxLayer" parent="Background/ParallaxBackground"]
-motion_scale = Vector2(0.7, 0.7)
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer7"]
 texture = ExtResource("8_yju8j")
@@ -245,11 +247,15 @@ hud = NodePath("../Hud")
 position = Vector2(577, 298)
 Delay = 5.0
 
+[node name="MusicTitle" parent="." instance=ExtResource("17_wj1ce")]
+position = Vector2(567, 455)
+
 [node name="Hud" parent="." instance=ExtResource("2_rnw41")]
 
 [node name="PauseScreen" parent="." instance=ExtResource("9_o5gpn")]
 visible = false
 
+[connection signal="finished" from="MusicPlayer" to="." method="_on_music_player_finished"]
 [connection signal="OnMusicEvent" from="AudioProcess" to="." method="_on_audio_process_on_music_event"]
 [connection signal="timeout" from="PlataformTimer" to="." method="_on_plataform_timer_timeout"]
 [connection signal="timeout" from="ObstacleTimer" to="." method="_on_obstacle_timer_timeout"]

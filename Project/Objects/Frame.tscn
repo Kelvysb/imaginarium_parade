@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://dg0h403j728tj"]
+[gd_scene load_steps=10 format=3 uid="uid://dg0h403j728tj"]
 
 [ext_resource type="Script" path="res://Objects/Frame.gd" id="1_bv63u"]
 [ext_resource type="Texture2D" uid="uid://cpfaybgmg0u3y" path="res://Assets/General/ink-sheet.png" id="2_crpv1"]
+[ext_resource type="Texture2D" uid="uid://tii3fowuscpl" path="res://Assets/General/bottom.png" id="2_cu7l6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oymdn"]
 size = Vector2(1334, 149)
@@ -59,19 +60,21 @@ position = Vector2(573, 674.5)
 shape = SubResource("RectangleShape2D_oymdn")
 
 [node name="Floor" type="StaticBody2D" parent="."]
+z_index = 100
 position = Vector2(-81, 618)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
 position = Vector2(653.5, 62)
 shape = SubResource("RectangleShape2D_53r0a")
 
-[node name="Polygon2D" type="Polygon2D" parent="Floor"]
-color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(-9, -9, 1312, -11, 1311, 133, -10, 128)
+[node name="Bottom2" type="Sprite2D" parent="Floor"]
+position = Vector2(718, 87)
+scale = Vector2(0.67449, 0.57)
+texture = ExtResource("2_cu7l6")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Floor"]
 material = SubResource("CanvasItemMaterial_lg3sa")
-position = Vector2(573, 618)
+position = Vector2(654, 0)
 amount = 100
 process_material = SubResource("ParticleProcessMaterial_dao2e")
 texture = ExtResource("2_crpv1")

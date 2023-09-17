@@ -365,7 +365,7 @@ one_shot = true
 
 [node name="Sprites" type="Node2D" parent="."]
 position = Vector2(2.84217e-14, -1.90735e-06)
-scale = Vector2(1.01037, 0.989626)
+scale = Vector2(1.00316, 0.996838)
 
 [node name="SpriteGroup" type="Node2D" parent="Sprites"]
 

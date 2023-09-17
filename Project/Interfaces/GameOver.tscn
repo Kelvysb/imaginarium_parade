@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://6f0kca26k636"]
+[gd_scene load_steps=4 format=3 uid="uid://6f0kca26k636"]
 
 [ext_resource type="Script" path="res://Interfaces/GameOver.gd" id="1_t7v8a"]
+[ext_resource type="Texture2D" uid="uid://cpatsusuqed8n" path="res://Assets/Background/layer1.png" id="2_3x8sp"]
+[ext_resource type="Texture2D" uid="uid://d2q466vykxgob" path="res://Assets/Menus/gameover.png" id="3_k7bhe"]
 
 [node name="GameOver" type="Control"]
 layout_mode = 3
@@ -11,29 +13,20 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_t7v8a")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0705882, 0.0705882, 0.0705882, 1)
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1200.0
+offset_bottom = 1928.0
+texture = ExtResource("2_3x8sp")
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "Game Over"
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 78.0
+offset_top = 6.0
+offset_right = 1240.0
+offset_bottom = 888.0
+texture = ExtResource("3_k7bhe")
+expand_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -51,12 +44,40 @@ grow_vertical = 0
 
 [node name="Restart" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../Exit")
+focus_next = NodePath("../Exit")
+focus_previous = NodePath("../Exit")
 text = "Restart"
 
 [node name="Exit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../Restart")
+focus_next = NodePath("../Restart")
+focus_previous = NodePath("../Restart")
 text = "Exit
 "
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 26.0
+offset_top = -88.0
+offset_right = 387.0
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "Total Score: "
+
+[node name="Score" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "0"
 
 [connection signal="pressed" from="VBoxContainer/Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]

@@ -7,6 +7,7 @@ const PARALAX_SPEED = 5
 @onready var wave1Position = %Wave1Position as PathFollow2D
 @onready var wave2Position = %Wave2Position as PathFollow2D
 @onready var plataformTimer = $PlataformTimer
+@onready var player = $Player as Player
 
 @onready var plataformPoint1 = $PlataformsPoints/PlataformPoint1
 @onready var plataformPoint2 = $PlataformsPoints/PlataformPoint2
@@ -103,6 +104,8 @@ func handlePause():
 		get_tree().paused = true	
 		pause_screen.show()
 		
+		
+		
 func _on_audio_process_on_music_event(event):
 	pass # Replace with function body.
 
@@ -116,3 +119,7 @@ func _on_obstacle_timer_timeout():
 		SpawnObstacle(obstacleBuffer)
 	else:
 		SpawnLifeUp(obstacleBuffer)
+
+func _on_music_player_finished():
+	player.WinScore(100)
+	get_tree().change_scene_to_file("res://Interfaces/Thanks.tscn")

@@ -1,6 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://bdq0pr6grdp8y"]
+[gd_scene load_steps=7 format=3 uid="uid://bdq0pr6grdp8y"]
 
 [ext_resource type="Script" path="res://Objects/PlataformBreak.gd" id="1_dlxfs"]
+[ext_resource type="Texture2D" uid="uid://b15inqg6ui4vb" path="res://Assets/Plataform/PlataformFrag-sheet.png" id="2_l7an4"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5n1ax"]
+particles_animation = true
+particles_anim_h_frames = 10
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
 [sub_resource type="Curve" id="Curve_6168p"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.463158), 0.0, 0.0, 0, 0]
@@ -22,17 +29,20 @@ angular_velocity_min = -75.79
 angular_velocity_max = 75.79
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
-scale_min = 2.0
-scale_max = 5.0
+scale_min = 0.1
+scale_max = 0.3
 scale_curve = SubResource("CurveTexture_icc7v")
+anim_offset_max = 1.0
 
 [node name="PlataformBreak" type="Node2D"]
 script = ExtResource("1_dlxfs")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_5n1ax")
 emitting = false
 amount = 50
 process_material = SubResource("ParticleProcessMaterial_jygcg")
+texture = ExtResource("2_l7an4")
 lifetime = 5.0
 one_shot = true
 explosiveness = 1.0

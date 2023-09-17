@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c1pwrjauxtsgi"]
+[gd_scene load_steps=3 format=3 uid="uid://c1pwrjauxtsgi"]
 
 [ext_resource type="Script" path="res://Interfaces/About.gd" id="1_lipg1"]
+[ext_resource type="Texture2D" uid="uid://cpatsusuqed8n" path="res://Assets/Background/layer1.png" id="2_krhf7"]
 
 [node name="About" type="Control"]
 layout_mode = 3
@@ -11,29 +12,34 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_lipg1")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0705882, 0.0705882, 0.0705882, 1)
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_krhf7")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="TextureRect"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "About"
+offset_left = 39.0
+offset_top = 25.0
+offset_right = 1458.0
+offset_bottom = 363.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Imagiunarium Parade - prototype
+
+I had this idea while I was in a concert:  Antônio Vivaldi - Four Seasons
+Before each part the maestro described the interpretations of the play
+and I started imagining a live painting moving around with the notes,
+like an moving exibition of Van Gogh that I visited a few months ago.
+
+So the plataforms and the obstacles are positioned based on the music notes,
+and all the art work is hand painted (digitally hand painted I mean).
+
+Problably I'll continue this project adding the rest of the concert from A. Vivaldi, 
+and making betters art work for all four season, maybe changing it to side scrolling for better gameplay.
+
+Thanks for playing,
+Kelvys B."
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -51,6 +57,8 @@ grow_vertical = 0
 
 [node name="Exit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
 text = "Back
 "
 

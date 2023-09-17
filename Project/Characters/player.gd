@@ -54,6 +54,7 @@ var score : int = 0
 @onready var animation_tree_atack = $AnimationTreeAtack
 @onready var spin_atack_trail = $SpinAtackTrail
 @onready var atacktrail = $Atacktrail
+@onready var global = get_node("/root/GlobalGameData") as GameData
 
 func _input(event):
 	if Input.is_action_just_pressed("jump"):
@@ -210,6 +211,12 @@ func handle_atack(delta):
 func _on_jump_timer_timeout():
 	canDoubleJump = false
 	
+	
+func WinScore(value : int):
+	score += value
+	score += (life * 50)
+	global.TotalScore = score
+	
 func Damage():
 	if not recovering:
 		life -= 1
@@ -228,6 +235,7 @@ func CheckObstacles():
 		for obstacle in obstacles:
 			if obstacle.is_in_group("obstacle"):
 				score += obstacle.Points
+				global.TotalScore = score
 				hud.SetScore(score)
 				obstacle.Kill()
 
