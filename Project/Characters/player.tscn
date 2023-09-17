@@ -1,29 +1,15 @@
-[gd_scene load_steps=27 format=3 uid="uid://bmivry4uus55u"]
+[gd_scene load_steps=44 format=3 uid="uid://bmivry4uus55u"]
 
 [ext_resource type="Script" path="res://Characters/player.gd" id="1_vbbnd"]
-[ext_resource type="Texture2D" uid="uid://co7dr2q8167iy" path="res://Assets/Player/Run.png" id="2_p70ml"]
 [ext_resource type="Texture2D" uid="uid://deu73h2ima7ox" path="res://Assets/Player/Weapon.png" id="3_4l3om"]
-[ext_resource type="PackedScene" uid="uid://ccukg8pjai65l" path="res://Interfaces/PauseScreen.tscn" id="3_sqnyx"]
+[ext_resource type="SpriteFrames" uid="uid://cfyonyyyl42nu" path="res://Assets/Player/CharaterSprites.tres" id="3_d16v0"]
+[ext_resource type="Texture2D" uid="uid://kmynjj8gjr2n" path="res://Assets/General/Dust.png" id="4_ein42"]
+[ext_resource type="Texture2D" uid="uid://ckjh54qiuawga" path="res://Assets/Player/atacktrail.png" id="5_4ctyb"]
+[ext_resource type="Texture2D" uid="uid://bksli1k84uolm" path="res://Assets/Player/spinTrail.png" id="6_ucj81"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4mkly"]
 radius = 14.0
 height = 52.0
-
-[sub_resource type="Curve" id="Curve_5imst"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.526316), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_y6bdk"]
-curve = SubResource("Curve_5imst")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6xo6j"]
-particle_flag_disable_z = true
-gravity = Vector3(0, 10, 0)
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
-scale_min = 20.0
-scale_max = 20.0
-scale_curve = SubResource("CurveTexture_y6bdk")
 
 [sub_resource type="Curve" id="Curve_3hhnj"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -34,11 +20,16 @@ curve = SubResource("Curve_3hhnj")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4q2h3"]
 particle_flag_disable_z = true
-gravity = Vector3(-8, -5, 0)
+spread = 30.0
+gravity = Vector3(-8, -20, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+angular_velocity_min = 10.0
+angular_velocity_max = 50.0
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
-scale_min = 5.0
-scale_max = 10.0
+scale_min = 0.2
+scale_max = 0.2
 scale_curve = SubResource("CurveTexture_7ns8e")
 
 [sub_resource type="Curve" id="Curve_c744p"]
@@ -62,9 +53,35 @@ angular_velocity_min = 121.26
 angular_velocity_max = 121.26
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
-scale_min = 5.0
-scale_max = 10.0
+scale_min = 0.2
+scale_max = 0.3
 scale_curve = SubResource("CurveTexture_214gy")
+
+[sub_resource type="Gradient" id="Gradient_bi2pr"]
+colors = PackedColorArray(1, 1, 1, 0.792157, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cby7u"]
+gradient = SubResource("Gradient_bi2pr")
+
+[sub_resource type="Curve" id="Curve_5imst"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_y6bdk"]
+curve = SubResource("Curve_5imst")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6xo6j"]
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+spread = 0.0
+gravity = Vector3(0, -10, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.0
+scale_max = 0.8
+scale_curve = SubResource("CurveTexture_y6bdk")
+color = Color(1, 1, 1, 0.490196)
+color_ramp = SubResource("GradientTexture1D_cby7u")
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_oxnln"]
 points = PackedVector2Array(0, 0, 0, -35, 30, -30, 40, 0, 30, 30, 0, 35)
@@ -83,20 +100,23 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprites/Sprite:visible")
+tracks/0/path = NodePath("Sprites:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true, false, true]
+"values": [true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o1y3k"]
 _data = {
 "Recover": SubResource("Animation_pl1uw")
 }
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xpovx"]
+animation = &"Spin"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kqd18"]
 animation = &"Run"
@@ -110,27 +130,18 @@ blend_point_0/pos = 0.6
 blend_point_1/node = SubResource("AnimationNodeAnimation_2w2ws")
 blend_point_1/pos = 0.0
 
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_a06sj"]
-graph_offset = Vector2(-496, 118.667)
-nodes/BlendSpace1D/node = SubResource("AnimationNodeBlendSpace1D_yf2bm")
-nodes/BlendSpace1D/position = Vector2(-240, 186.667)
-node_connections = [&"output", 0, &"BlendSpace1D"]
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_iufu3"]
 
-[sub_resource type="Animation" id="Animation_w3brs"]
-resource_name = "Run"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprites/Sprite:frame")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0, 10]
-}
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_a06sj"]
+graph_offset = Vector2(-756.374, 4.3679)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_xpovx")
+nodes/Animation/position = Vector2(-540, 160)
+nodes/BlendSpace1D/node = SubResource("AnimationNodeBlendSpace1D_yf2bm")
+nodes/BlendSpace1D/position = Vector2(-540, 20)
+nodes/output/position = Vector2(180, 140)
+nodes/spin/node = SubResource("AnimationNodeOneShot_iufu3")
+nodes/spin/position = Vector2(-160, 60)
+node_connections = [&"output", 0, &"spin", &"spin", 0, &"BlendSpace1D", &"spin", 1, &"Animation"]
 
 [sub_resource type="Animation" id="Animation_nyb14"]
 resource_name = "Idle"
@@ -147,12 +158,189 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1.02, 0.98), Vector2(1, 1)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprites/SpriteGroup/Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [10, 10]
+}
+
+[sub_resource type="Animation" id="Animation_w3brs"]
+resource_name = "Run"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/SpriteGroup/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 9]
+}
+
+[sub_resource type="Animation" id="Animation_temcy"]
+resource_name = "Spin"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/SpriteGroup/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [11, 11]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprites/SpriteGroup/Sprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.26573]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kdgoh"]
 _data = {
 "Idle": SubResource("Animation_nyb14"),
-"Run": SubResource("Animation_w3brs")
+"Run": SubResource("Animation_w3brs"),
+"Spin": SubResource("Animation_temcy")
 }
+
+[sub_resource type="Animation" id="Animation_r7ta5"]
+resource_name = "Idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/SpriteGroup/Sprite/Weapon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [2.70526, 2.70526]
+}
+
+[sub_resource type="Animation" id="Animation_kvg7y"]
+resource_name = "Atack"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/SpriteGroup/Sprite/Weapon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-1.39626, 1.39626, 1.39626]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Atacktrail:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Atacktrail:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qfng0"]
+resource_name = "SpinAtack"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/SpriteGroup/Sprite/Weapon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.26573]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpinAtackTrail:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 6.26573, 0.0, 6.26573]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_61lgt"]
+_data = {
+"Atack": SubResource("Animation_kvg7y"),
+"Idle": SubResource("Animation_r7ta5"),
+"SpinAtack": SubResource("Animation_qfng0")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i30fv"]
+animation = &"Atack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bv0gk"]
+animation = &"SpinAtack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gqlpn"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_lt66a"]
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_u5a5s"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_l7rvk"]
+graph_offset = Vector2(-815.575, 230.963)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_gqlpn")
+nodes/Animation/position = Vector2(-720, 80)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_i30fv")
+"nodes/Animation 2/position" = Vector2(-723.062, 265.693)
+"nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_bv0gk")
+"nodes/Animation 3/position" = Vector2(-720, 400)
+nodes/Atack/node = SubResource("AnimationNodeOneShot_lt66a")
+nodes/Atack/position = Vector2(-33, 176)
+nodes/Spin/node = SubResource("AnimationNodeBlend2_u5a5s")
+nodes/Spin/position = Vector2(-400, 300)
+node_connections = [&"output", 0, &"Atack", &"Atack", 0, &"Animation", &"Atack", 1, &"Spin", &"Spin", 0, &"Animation 2", &"Spin", 1, &"Animation 3"]
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_vbbnd")
@@ -161,22 +349,49 @@ script = ExtResource("1_vbbnd")
 position = Vector2(0, -26)
 shape = SubResource("CapsuleShape2D_4mkly")
 
+[node name="RunParticle" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 15
+process_material = SubResource("ParticleProcessMaterial_4q2h3")
+texture = ExtResource("4_ein42")
+
+[node name="JumpParticle" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_pxxu7")
+texture = ExtResource("4_ein42")
+lifetime = 0.2
+one_shot = true
+
 [node name="Sprites" type="Node2D" parent="."]
 position = Vector2(2.84217e-14, -1.90735e-06)
-scale = Vector2(1.01375, 0.986252)
+scale = Vector2(1.01037, 0.989626)
 
-[node name="Sprite" type="Sprite2D" parent="Sprites"]
-position = Vector2(2.38419e-07, -26)
-scale = Vector2(0.175, 0.166)
-texture = ExtResource("2_p70ml")
-hframes = 11
-frame = 7
+[node name="SpriteGroup" type="Node2D" parent="Sprites"]
 
-[node name="Weapon" type="Sprite2D" parent="Sprites/Sprite"]
-position = Vector2(-223.762, 39.7601)
-rotation = 2.70299
-scale = Vector2(0.388764, 0.374402)
-skew = -0.0501275
+[node name="DashParticle" type="GPUParticles2D" parent="Sprites/SpriteGroup"]
+position = Vector2(-11.9104, -25.1895)
+scale = Vector2(0.991871, 1.00826)
+emitting = false
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_6xo6j")
+texture = ExtResource("4_ein42")
+lifetime = 0.5
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Sprites/SpriteGroup"]
+position = Vector2(0, -24.1604)
+scale = Vector2(0.163106, 0.163106)
+sprite_frames = ExtResource("3_d16v0")
+frame = 10
+
+[node name="Weapon" type="Node2D" parent="Sprites/SpriteGroup/Sprite"]
+position = Vector2(0, -37.4305)
+rotation = 2.70526
+
+[node name="WeaponSprite" type="Sprite2D" parent="Sprites/SpriteGroup/Sprite/Weapon"]
+position = Vector2(204.47, -2.03329)
+scale = Vector2(0.413328, 0.385695)
+skew = -0.0922891
 texture = ExtResource("3_4l3om")
 
 [node name="JumpTimer" type="Timer" parent="."]
@@ -184,25 +399,7 @@ process_callback = 0
 wait_time = 0.1
 one_shot = true
 
-[node name="DashParticle" type="GPUParticles2D" parent="."]
-position = Vector2(0, -24)
-emitting = false
-amount = 200
-process_material = SubResource("ParticleProcessMaterial_6xo6j")
-
-[node name="RunParticle" type="GPUParticles2D" parent="."]
-emitting = false
-process_material = SubResource("ParticleProcessMaterial_4q2h3")
-
-[node name="JumpParticle" type="GPUParticles2D" parent="."]
-emitting = false
-amount = 20
-process_material = SubResource("ParticleProcessMaterial_pxxu7")
-lifetime = 0.2
-one_shot = true
-
 [node name="Atack" type="Node2D" parent="."]
-visible = false
 
 [node name="AtackArea" type="Area2D" parent="Atack"]
 collision_layer = 3
@@ -212,11 +409,7 @@ collision_mask = 3
 position = Vector2(14, -28)
 shape = SubResource("ConvexPolygonShape2D_oxnln")
 
-[node name="Polygon2D" type="Polygon2D" parent="Atack"]
-polygon = PackedVector2Array(13, -28, 14, -63, 44, -58, 54, -28, 44, 2, 14, 7)
-
 [node name="SpinAtack" type="Node2D" parent="."]
-visible = false
 
 [node name="AtackArea" type="Area2D" parent="SpinAtack"]
 collision_layer = 3
@@ -225,9 +418,6 @@ collision_mask = 3
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpinAtack/AtackArea"]
 position = Vector2(0, -24)
 shape = SubResource("CircleShape2D_u3ceh")
-
-[node name="Polygon2D" type="Polygon2D" parent="SpinAtack"]
-polygon = PackedVector2Array(0, -85, 15, -83, 31, -77, 44, -67, 54, -54, 59, -39, 61, -24, 59, -7, 53, 7, 43, 20, 30, 29, 15, 36, 0, 36, -16, 34, -31, 29, -44, 19, -53, 7, -59, -7, -61, -24, -58, -40, -53, -54, -43, -67, -31, -77, -15, -83)
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 2
@@ -238,25 +428,61 @@ position = Vector2(0, -26)
 shape = SubResource("CapsuleShape2D_yp2u0")
 
 [node name="RecoverAnimation" type="AnimationPlayer" parent="."]
+reset_on_save = false
 playback_process_mode = 0
 libraries = {
 "": SubResource("AnimationLibrary_o1y3k")
 }
 
-[node name="PauseScreen" parent="." instance=ExtResource("3_sqnyx")]
-visible = false
-
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeBlendTree_a06sj")
 anim_player = NodePath("../SpriteAnimation")
 active = true
-parameters/BlendSpace1D/blend_position = 0.613883
+parameters/BlendSpace1D/blend_position = 0.0
+parameters/spin/active = false
+parameters/spin/internal_active = false
+parameters/spin/request = 0
 
 [node name="SpriteAnimation" type="AnimationPlayer" parent="."]
 autoplay = "Idle"
 libraries = {
 "": SubResource("AnimationLibrary_kdgoh")
 }
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Idle"
+libraries = {
+"": SubResource("AnimationLibrary_61lgt")
+}
+
+[node name="AnimationTreeAtack" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeBlendTree_l7rvk")
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/Atack/active = false
+parameters/Atack/internal_active = false
+parameters/Atack/request = 0
+parameters/Spin/blend_amount = 0.0
+
+[node name="Atacktrail" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0, 0, 0, 1)
+position = Vector2(1.99121, -25.1118)
+rotation = 0.0472362
+scale = Vector2(0.131091, 0.132253)
+skew = -0.000829101
+texture = ExtResource("5_4ctyb")
+
+[node name="SpinAtackTrail" type="Node2D" parent="."]
+visible = false
+position = Vector2(5.96046e-08, -26)
+scale = Vector2(0.141667, 0.141667)
+
+[node name="SpinTrail" type="Sprite2D" parent="SpinAtackTrail"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(-21.1765, 77.6471)
+scale = Vector2(1, 1)
+texture = ExtResource("6_ucj81")
 
 [connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]

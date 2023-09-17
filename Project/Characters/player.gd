@@ -40,10 +40,8 @@ var facing = 1
 var life : int = 0
 var score : int = 0
 
-@onready var pause_screen = $PauseScreen
 @onready var jump_timer = $JumpTimer
-@onready var sprite = $Sprites/Sprite
-@onready var dash_particle = $DashParticle
+@onready var dash_particle = $Sprites/SpriteGroup/DashParticle
 @onready var run_particle = $RunParticle
 @onready var jump_particle = $JumpParticle
 @onready var atack = $Atack
@@ -52,6 +50,10 @@ var score : int = 0
 @onready var atack_area2 = $Atack/AtackArea
 @onready var recover_animation = $RecoverAnimation
 @onready var animation_tree = $AnimationTree
+@onready var sprite_group = $Sprites/SpriteGroup
+@onready var animation_tree_atack = $AnimationTreeAtack
+@onready var spin_atack_trail = $SpinAtackTrail
+@onready var atacktrail = $Atacktrail
 
 func _input(event):
 	if Input.is_action_just_pressed("jump"):
@@ -61,9 +63,9 @@ func _ready():
 	life = maxLifes
 	jump_timer.wait_time = double_jump_time
 	
-func _physics_process(delta):	
-	hud.SetLifes(life)
-	handlePause()
+func _physics_process(delta):
+	handle_grounded()
+	handleHUD()	
 	handleRecovering(delta)
 	handleSpecialCharge(delta)
 	if not dashing:			
@@ -73,8 +75,11 @@ func _physics_process(delta):
 	handle_atack(delta)
 	handle_dash(delta)
 	handle_run_particles()
-	move_and_slide()	
-	handle_grounded()
+	move_and_slide()		
+
+
+func handleHUD():
+	hud.SetLifes(life)
 
 func handleRecovering(delta):
 	if recovering:
@@ -82,11 +87,6 @@ func handleRecovering(delta):
 		if recoverTimer <= 0:
 			recover_animation.stop()
 			recovering = false	
-		
-func handlePause():
-	if Input.is_action_just_pressed("pause"):
-		get_tree().paused = true
-		pause_screen.visible = true
 
 func handleSpecialCharge(delta):
 	if specialTimer > 0:
@@ -109,12 +109,14 @@ func handle_direction(delta):
 	if direction :
 		velocity.x = direction * SPEED
 		if direction > 0:
-			sprite.flip_h = false
 			atack.scale.x = 1
+			sprite_group.scale.x = 1
+			atacktrail.flip_h = false
 			facing = 1
 		else:
-			sprite.flip_h = true		
 			atack.scale.x = -1
+			atacktrail.flip_h = true
+			sprite_group.scale.x = -1
 			facing = -1
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
@@ -122,8 +124,8 @@ func handle_direction(delta):
 	animation_tree.set("parameters/BlendSpace1D/blend_position", absf(velocity.x))
 
 func handle_jump(delta):
-	if is_on_floor():	
-		coyoteTimer = coyote_time
+	if is_on_floor():
+		coyoteTimer = coyote_time		
 	
 	jumpBufferTimer -= delta
 	coyoteTimer -= delta
@@ -140,6 +142,7 @@ func handle_jump(delta):
 		if not canDoubleJump:			
 			velocity.y = JUMP_VELOCITY
 		else:
+			animation_tree.set("parameters/spin/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE);
 			velocity.y = DOUBLE_JUMP_VELOCITY
 			doubleJumping = true
 		jump_particle.emitting = true
@@ -177,6 +180,8 @@ func handle_run_particles():
 func handle_grounded():
 	var wasGrounded = isGrounded
 	isGrounded = is_on_floor()
+	if isGrounded:
+		animation_tree.set("parameters/spin/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT);
 	if isGrounded != wasGrounded:
 		canDashJump = true
 
@@ -187,18 +192,20 @@ func handle_atack(delta):
 	else:	
 		if Input.is_action_just_pressed("atack") or (Input.is_action_just_pressed("special") and canDashJump and canSpecial and jumping):
 			if not doubleJumping:
-				atackTimer = atack_time
-				atack.visible = true
+				atackTimer = atack_time				
+				animation_tree_atack.set("parameters/Spin/blend_amount", 0)
 			else:					
-				atackTimer = spin_atack_time
-				spin_atack.visible = true		
+				atackTimer = spin_atack_time	
+				spin_atack_trail.visible = true
+				animation_tree_atack.set("parameters/Spin/blend_amount", 1)
 			atacking = true
+			animation_tree_atack.set("parameters/Atack/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 			CheckObstacles()
 	
 	if atackTimer <= 0:
-		spin_atack.visible = false
-		atack.visible = false
+		spin_atack_trail.visible = false
 		atacking = false
+		animation_tree_atack.set("parameters/Atack/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
 		
 func _on_jump_timer_timeout():
 	canDoubleJump = false

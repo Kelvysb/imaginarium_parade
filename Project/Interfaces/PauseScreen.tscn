@@ -1,13 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://ccukg8pjai65l"]
+[gd_scene load_steps=4 format=3 uid="uid://ccukg8pjai65l"]
 
 [ext_resource type="Script" path="res://Interfaces/PauseScreen.gd" id="1_qc3n6"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_8uex8"]
+action = &"pause"
+pressed = true
+
+[sub_resource type="Shortcut" id="Shortcut_fs8qe"]
+events = [SubResource("InputEventAction_8uex8")]
 
 [node name="PauseScreen" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_qc3n6")
 
 [node name="Control" type="Control" parent="."]
-process_mode = 3
+top_level = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -55,6 +62,7 @@ grow_vertical = 0
 
 [node name="Continue" type="Button" parent="Control/VBoxContainer"]
 layout_mode = 2
+shortcut = SubResource("Shortcut_fs8qe")
 text = "Continue"
 
 [node name="Quit" type="Button" parent="Control/VBoxContainer"]

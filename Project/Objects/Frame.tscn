@@ -1,9 +1,42 @@
-[gd_scene load_steps=3 format=3 uid="uid://dg0h403j728tj"]
+[gd_scene load_steps=9 format=3 uid="uid://dg0h403j728tj"]
 
 [ext_resource type="Script" path="res://Objects/Frame.gd" id="1_bv63u"]
+[ext_resource type="Texture2D" uid="uid://cpfaybgmg0u3y" path="res://Assets/General/ink-sheet.png" id="2_crpv1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oymdn"]
 size = Vector2(1334, 149)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_53r0a"]
+size = Vector2(1327, 144)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_lg3sa"]
+particles_animation = true
+particles_anim_h_frames = 9
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_y5s3h"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.463158), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_m6giy"]
+curve = SubResource("Curve_y5s3h")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dao2e"]
+emission_shape = 3
+emission_box_extents = Vector3(600, 1, 1)
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+gravity = Vector3(0, 98, 0)
+initial_velocity_min = 80.0
+initial_velocity_max = 100.0
+angular_velocity_min = 30.0
+angular_velocity_max = 60.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.2
+scale_max = 0.3
+scale_curve = SubResource("CurveTexture_m6giy")
 
 [node name="Frame" type="Node2D"]
 script = ExtResource("1_bv63u")
@@ -24,5 +57,24 @@ collision_mask = 3
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom"]
 position = Vector2(573, 674.5)
 shape = SubResource("RectangleShape2D_oymdn")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(-81, 618)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2(653.5, 62)
+shape = SubResource("RectangleShape2D_53r0a")
+
+[node name="Polygon2D" type="Polygon2D" parent="Floor"]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-9, -9, 1312, -11, 1311, 133, -10, 128)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_lg3sa")
+position = Vector2(573, 618)
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_dao2e")
+texture = ExtResource("2_crpv1")
+lifetime = 2.0
 
 [connection signal="body_entered" from="Bottom" to="." method="_on_bottom_body_entered"]

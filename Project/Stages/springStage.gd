@@ -1,5 +1,7 @@
 extends Node2D
 
+const PARALAX_SPEED = 5
+
 @onready var musicPlayer = $MusicPlayer
 @onready var audioProcess = $AudioProcess as AudioProcess
 @onready var wave1Position = %Wave1Position as PathFollow2D
@@ -20,6 +22,8 @@ extends Node2D
 @onready var obstaclePoint5 = $ObstaclesPoints/ObstaclePoint5
 @onready var obstaclePoint6 = $ObstaclesPoints/ObstaclePoint6
 @onready var obstaclePoint7 = $ObstaclesPoints/ObstaclePoint7
+@onready var pause_screen = $PauseScreen
+@onready var parallax_background = $Background/ParallaxBackground
 
 var plataformDbMax = 0.1
 
@@ -34,14 +38,18 @@ func _ready():
 	plataformBuffer = plataformPoint4.global_position
 
 func _process(delta):
+	handlePause()
 	if musicPlayer.playing:
+		handleParalax(delta)
 		var musicData = audioProcess.GetMusicData()
 		wave1Position.progress_ratio = lerpf(wave1Position.progress_ratio, musicData.WaveValue, 0.1) 
 		wave2Position.progress_ratio = lerpf(wave1Position.progress_ratio, musicData.WaveValue, 0.1) 
 		SetPlataform(musicData)
 		SetObstacle(musicData)
 
-	
+func handleParalax(delta):
+	parallax_background.offset.y += PARALAX_SPEED * delta
+
 func SetPlataform(musicData : MusicData):
 	if musicData.PlataformValue >= 0.7:
 		plataformBuffer = plataformPoint1.global_position
@@ -90,6 +98,11 @@ func SpawnLifeUp(point: Vector2):
 	add_child(instance)
 	
 	
+func handlePause():
+	if Input.is_action_just_pressed("pause"):
+		get_tree().paused = true	
+		pause_screen.show()
+		
 func _on_audio_process_on_music_event(event):
 	pass # Replace with function body.
 

@@ -1,21 +1,40 @@
-[gd_scene load_steps=13 format=3 uid="uid://grukehrsesa7"]
+[gd_scene load_steps=25 format=3 uid="uid://grukehrsesa7"]
 
 [ext_resource type="Script" path="res://Stages/springStage.gd" id="1_j4wj4"]
+[ext_resource type="Texture2D" uid="uid://cpatsusuqed8n" path="res://Assets/Background/layer1.png" id="2_4nsw0"]
 [ext_resource type="PackedScene" uid="uid://c6r3yj3xpshvq" path="res://Interfaces/HUD.tscn" id="2_rnw41"]
+[ext_resource type="Texture2D" uid="uid://bxfd0hbweq4v0" path="res://Assets/Background/layer2.png" id="3_a4dwl"]
 [ext_resource type="AudioStream" uid="uid://2wnj83yhtiv2" path="res://Assets/Music/Spring_1.mp3" id="3_rm1r8"]
+[ext_resource type="Texture2D" uid="uid://cnyv0cmsi5tos" path="res://Assets/Background/layer3.png" id="4_my838"]
 [ext_resource type="PackedScene" uid="uid://dg0h403j728tj" path="res://Objects/Frame.tscn" id="4_xrpif"]
 [ext_resource type="PackedScene" uid="uid://c7i5i6awci5yl" path="res://Scripts/AudioProcess.tscn" id="5_401jc"]
+[ext_resource type="Texture2D" uid="uid://dudsns7sjni6g" path="res://Assets/General/Leves-sheet.png" id="5_s7bj1"]
+[ext_resource type="Texture2D" uid="uid://f8n2pmaxoskf" path="res://Assets/Background/layer4.png" id="5_xdrkw"]
 [ext_resource type="PackedScene" uid="uid://bmivry4uus55u" path="res://Characters/player.tscn" id="6_fampw"]
+[ext_resource type="Texture2D" uid="uid://b1fgaxrpb2xnw" path="res://Assets/Background/layer5.png" id="6_x7eow"]
+[ext_resource type="Texture2D" uid="uid://dw07ycpjcp5e1" path="res://Assets/Background/layer6.png" id="7_xlb3e"]
 [ext_resource type="PackedScene" uid="uid://db1q30hurmg85" path="res://Objects/Plataform.tscn" id="7_yv6o6"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k77ik"]
-size = Vector2(1331, 155)
+[ext_resource type="Texture2D" uid="uid://bi2tiyl8sct1b" path="res://Assets/Background/layer7.png" id="8_yju8j"]
+[ext_resource type="PackedScene" uid="uid://ccukg8pjai65l" path="res://Interfaces/PauseScreen.tscn" id="9_o5gpn"]
 
 [sub_resource type="Curve2D" id="Curve2D_1giwl"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -181, 5, 0, 0, 0, 0, 419, 2)
 }
 point_count = 2
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_dj1y3"]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_fvvhk"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_aroyt"]
+curve = SubResource("Curve_fvvhk")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vsr05"]
 particle_flag_disable_z = true
@@ -24,14 +43,26 @@ spread = 0.0
 gravity = Vector3(0, 0, 0)
 initial_velocity_min = 100.0
 initial_velocity_max = 100.0
+angular_velocity_min = -60.0
+angular_velocity_max = 60.0
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
+scale_min = 0.05
+scale_max = 0.1
+scale_curve = SubResource("CurveTexture_aroyt")
+anim_offset_max = 1.0
 
 [sub_resource type="Curve2D" id="Curve2D_np45j"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 674, 3, 0, 0, 0, 0, 120, 1)
 }
 point_count = 2
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_bd8je"]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tmbjv"]
 particle_flag_disable_z = true
@@ -40,11 +71,67 @@ spread = 0.0
 gravity = Vector3(0, 0, 0)
 initial_velocity_min = 100.0
 initial_velocity_max = 100.0
+angular_velocity_min = -60.0
+angular_velocity_max = 60.0
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
+scale_min = 0.05
+scale_max = 0.1
+anim_offset_max = 1.0
 
 [node name="SpringStage" type="Node2D"]
 script = ExtResource("1_j4wj4")
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Background"]
+offset = Vector2(600, -250)
+transform = Transform2D(1, 0, 0, 1, 600, -250)
+scroll_ignore_camera_zoom = true
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(0, 1400)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer"]
+texture = ExtResource("2_4nsw0")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+motion_scale = Vector2(0.2, 0.2)
+motion_mirroring = Vector2(1044, 1044)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer2"]
+texture = ExtResource("3_a4dwl")
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+motion_scale = Vector2(0.3, 0.3)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer3"]
+texture = ExtResource("4_my838")
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+motion_scale = Vector2(0.4, 0.4)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer4"]
+texture = ExtResource("5_xdrkw")
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+motion_scale = Vector2(0.5, 0.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer5"]
+texture = ExtResource("6_x7eow")
+
+[node name="ParallaxLayer6" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+motion_scale = Vector2(0.6, 0.6)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer6"]
+texture = ExtResource("7_xlb3e")
+
+[node name="ParallaxLayer7" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+motion_scale = Vector2(0.7, 0.7)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer7"]
+texture = ExtResource("8_yju8j")
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_rm1r8")
@@ -56,16 +143,6 @@ MusicPlayer = NodePath("../MusicPlayer")
 MusicParametersPath = "res://Assets/Music/spring_1.json"
 
 [node name="Frame" parent="." instance=ExtResource("4_xrpif")]
-
-[node name="Floor" type="StaticBody2D" parent="."]
-position = Vector2(-82, 615)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
-position = Vector2(655.5, 67.5)
-shape = SubResource("RectangleShape2D_k77ik")
-
-[node name="Polygon2D" type="Polygon2D" parent="Floor"]
-polygon = PackedVector2Array(-7, -6, 1324, -8, 1324, 147, -9, 142)
 
 [node name="Wave" type="Node2D" parent="."]
 position = Vector2(63, -5)
@@ -81,9 +158,11 @@ rotation = -0.00499996
 
 [node name="Point1" type="GPUParticles2D" parent="Wave/Path1/Wave1Position"]
 unique_name_in_owner = true
+material = SubResource("CanvasItemMaterial_dj1y3")
 rotation = -0.00172117
 amount = 100
 process_material = SubResource("ParticleProcessMaterial_vsr05")
+texture = ExtResource("5_s7bj1")
 lifetime = 30.0
 trail_lifetime = 0.1
 
@@ -97,8 +176,10 @@ rotation = -3.13798
 
 [node name="Point2" type="GPUParticles2D" parent="Wave/Path2/Wave2Position"]
 unique_name_in_owner = true
+material = SubResource("CanvasItemMaterial_bd8je")
 amount = 100
 process_material = SubResource("ParticleProcessMaterial_tmbjv")
+texture = ExtResource("5_s7bj1")
 lifetime = 30.0
 
 [node name="PlataformsPoints" type="Node2D" parent="."]
@@ -165,6 +246,9 @@ position = Vector2(577, 298)
 Delay = 5.0
 
 [node name="Hud" parent="." instance=ExtResource("2_rnw41")]
+
+[node name="PauseScreen" parent="." instance=ExtResource("9_o5gpn")]
+visible = false
 
 [connection signal="OnMusicEvent" from="AudioProcess" to="." method="_on_audio_process_on_music_event"]
 [connection signal="timeout" from="PlataformTimer" to="." method="_on_plataform_timer_timeout"]
